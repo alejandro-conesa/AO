@@ -1,4 +1,3 @@
-import numpy as np
-array = np.random.randint(1, 100, size=(1, 3))
-array.sort()
+array = [3, 5, 6, 8]
+print(array.pop())
 print(array)
