@@ -1,6 +1,6 @@
 import math
 
-def viajar(costes, volumenes, S, i = 0):
+def viajar(costes: list, volumenes: list, S: int, i = 0) -> int:
     if i >= len(costes):
         if S == 0:
             return 0
