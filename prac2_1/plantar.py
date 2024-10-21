@@ -1,7 +1,7 @@
 import math
 
 def plantar(matriz: list, i = 0, j = -1) -> int:
-    if i == len(matriz) - 1 and j == -len(matriz[i]):
+    if i == len(matriz) - 1 and j == -len(matriz[i]): #con numpy se saca mas facil
         return 0
     
     if i >= len(matriz) or j < -len(matriz[i]) or matriz[i][j] == 1:
