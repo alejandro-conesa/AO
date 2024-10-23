@@ -33,7 +33,23 @@ def planear_gira_memo(C, R, entradas):
 
     return pgm(d, C, R, entradas, pd)
 
-print(planear_gira_memo(3, 3, [3000, 6000, 7000, 8000, 9000]))
+def planear_gira_tab(C, R, entradas):
+    d = len(entradas)
+    pd = np.full((d+1, C+1), -1)
+    pd[0, :] = 0
+    pd[:, 0] = 0
+    for i in range(1, d+1):
+        for j in range(1, C+1):
+            if i-R < 0:
+                pos1 = pd[0, j-1] + entradas[i-1]
+            else:
+                pos1 = pd[i-R, j-1] + entradas[i-1]
+            pos2 = pd[i-1, j]
+            pd[i, j] = max(pos1, pos2)
+
+    return pd[d, C]
+
+print(planear_gira_tab(3, 3, [3000, 6000, 7000, 8000, 9000]))
     
 
     
