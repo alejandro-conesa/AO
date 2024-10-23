@@ -1,17 +1,57 @@
+import numpy as np
+
+#no pd
 def mochila(n, W, v, w):
-    if n == -1 or W == 0:
+    if n == 0 or W == 0:
         return 0
     
-    if w[n] > W:
+    if w[n-1] > W:
         return mochila(n-1, W, v, w)
     else:
         m1 = mochila(n-1, W, v, w)
-        m2 = v[n] + mochila(n-1, W-w[n], v, w)
+        m2 = v[n-1] + mochila(n-1, W-w[n-1], v, w)
         return max(m1, m2)
 
 def director_deportivo(valoraciones:list, precios:list, G:int) -> int:
-    n = len(valoraciones) - 1
+    n = len(valoraciones)
     return mochila(n, G, valoraciones, precios)
+
+#memoizacion
+def mochila_memoizacion(n, W, v, w, pd):
+    if pd[n, W] != -1:
+        return pd[n, W]
     
+    if n == 0 or W == 0:
+        pd[n, W] = 0
+        return pd[n, W]
     
-print(director_deportivo([6, 1, 3, 8], [950, 2400, 500, 2000], 3000))
+    if w[n-1] > W:
+        pd[n, W] = mochila_memoizacion(n-1, W, v, w, pd)
+        return pd[n, W]
+    else:
+        m1 = mochila_memoizacion(n-1, W, v, w, pd)
+        m2 = v[n-1] + mochila_memoizacion(n-1, W-w[n-1], v, w, pd)
+        pd[n, W] = max(m1, m2)
+        return pd[n, W]
+    
+def director_memoizacion(valoraciones, precios, G):
+    pd = np.full((len(valoraciones)+1, G+1), -1)
+    return(mochila_memoizacion(len(valoraciones), G, valoraciones, precios, pd))
+
+#tabulacion
+def director_tabulacion(valoraciones, precios, G):
+    n = len(valoraciones)
+    pd = np.full((n+1, G+1), -1)
+    pd[0, :] = 0
+    pd[:, 0] = 0
+    for i in range(1, n+1):
+        for j in range(1, G+1):
+            if precios[i-1] > j:
+                pd[i, j] = pd[i-1, j]
+            else:
+                pd[i, j] = max(pd[i-1, j], valoraciones[i-1]+pd[i-1, j-precios[i-1]])
+    
+    return pd[n, G]
+
+    
+print(director_tabulacion([6, 1, 3, 8], [950, 2400, 500, 2000], 3000))
