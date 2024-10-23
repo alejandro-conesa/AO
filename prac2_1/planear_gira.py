@@ -47,9 +47,25 @@ def planear_gira_tab(C, R, entradas):
             pos2 = pd[i-1, j]
             pd[i, j] = max(pos1, pos2)
 
-    return pd[d, C]
+    return pd
 
-print(planear_gira_tab(3, 3, [3000, 6000, 7000, 8000, 9000]))
+def recuperar_soluciones(C, R, entradas, pd):
+    i = len(entradas)
+    j = C
+    solucion = []
+    while i > 0 and j > 0:
+        if pd[i][j] != pd[i-1][j]:
+            solucion.append(i-1)
+            j -= 1
+            i -= R
+        else:
+            i -= 1
+    return list(reversed(solucion))
+
+tabla = planear_gira_tab(3, 3, [3000, 6000, 7000, 8000, 9000])
+print(tabla)
+sol = recuperar_soluciones(3, 3, [3000, 6000, 7000, 8000, 9000], tabla)
+print(sol)
     
 
     
