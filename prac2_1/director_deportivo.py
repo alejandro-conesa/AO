@@ -51,18 +51,21 @@ def director_tabulacion(valoraciones, precios, G):
             else:
                 pd[i, j] = max(pd[i-1, j], valoraciones[i-1]+pd[i-1, j-precios[i-1]])
     
-    return pd[n, G]
+    return pd
 
 #recuperar soluciones
 def recuperar_soluciones(n, W, v, w, pd):
     i = n
     j = W
-    solucion = np.array([])
+    solucion = []
     while i > 0 and j > 0:
-        if pd[i, j] != pd[i-1, j]:
+        if pd[i][j] != pd[i-1][j]:
             solucion.append(i-1)
             j -= w[i-1]
         i -= 1
     return np.flip(solucion)
     
-print(director_tabulacion([6, 1, 3, 8], [950, 2400, 500, 2000], 3000))
+pd = director_tabulacion([6, 1, 3, 8], [950, 2400, 500, 2000], 3000)
+print(pd[4, 3000])
+sol = recuperar_soluciones(4, 3000, [6, 1, 3, 8], [950, 2400, 500, 2000], pd)
+print(sol)
