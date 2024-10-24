@@ -44,15 +44,48 @@ def viajar_memo(costes, volumenes, S):
 #tabulacion
 def viajar_tab(costes, volumenes, S):
     n = len(costes)
-    pd = np.full((n+1, S+1), -1)
-    pd[0, :] = 10**10
+    pd = np.full((n+1, S+1), math.inf)
     pd[0, 0] = 0
     for i in range(1, n+1):
         for j in range(0, S+1):
-            pos1 = pd[i-1, j-volumenes[i-1]] + costes[i-1]
+            if j-volumenes[i-1] < 0:
+                pos1 = math.inf
+            else:
+                pos1 = pd[i-1, j-volumenes[i-1]] + costes[i-1]
             pos2 = pd[i-1, j]
             pd[i, j] = min(pos1, pos2)
-    
+
     return pd[n, S]
 
-print(viajar_tab([4, 3, 2, 5, 1], [3, 2, 4, 5 ,1], 10))
+#recuperar soluciones
+def recuperar_soluciones(costes, volumenes, S):
+    def viajar_tab(costes, volumenes, S):
+        n = len(costes)
+        pd = np.full((n+1, S+1), math.inf)
+        pd[0, 0] = 0
+        for i in range(1, n+1):
+            for j in range(0, S+1):
+                if j-volumenes[i-1] < 0:
+                    pos1 = math.inf
+                else:
+                    pos1 = pd[i-1, j-volumenes[i-1]] + costes[i-1]
+                pos2 = pd[i-1, j]
+                pd[i, j] = min(pos1, pos2)
+
+        return pd
+    pd = viajar_tab(costes, volumenes, S)
+    print(pd)
+    i = len(costes)
+    j = S
+    solucion = []
+    while i > 0 and j > 0:
+        if j >= volumenes[i-1] and pd[i][j] == pd[i-1][j-volumenes[i-1]] + costes[i-1]:
+            solucion.append(i-1)
+            j -= volumenes[i-1]
+            i -= 1
+        else:
+            i -= 1
+    
+    return list(reversed(solucion))
+
+print(recuperar_soluciones([3, 2, 4, 5 ,1], [4, 3, 2, 5, 1], 10))
