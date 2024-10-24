@@ -25,7 +25,11 @@ def planear_gira_memo(C, R, entradas):
             pd_pgm[d_pgm, C_pgm] = 0 
             return pd_pgm[d_pgm, C_pgm]
         
-        pos1 = pgm(d_pgm-R_pgm, C_pgm-1, R_pgm, entradas_pgm, pd_pgm) + entradas_pgm[d-1]
+        if d_pgm-R_pgm < 0:
+            pos1 = pgm(0, C_pgm-1, R_pgm, entradas_pgm, pd_pgm) + entradas_pgm[d_pgm-1]
+        else:
+            pos1 = pgm(d_pgm-R_pgm, C_pgm-1, R_pgm, entradas_pgm, pd_pgm) + entradas_pgm[d_pgm-1]
+
         pos2 = pgm(d_pgm-1, C_pgm, R_pgm, entradas_pgm, pd_pgm)
 
         pd_pgm[d_pgm, C_pgm] = max(pos1, pos2)
@@ -61,6 +65,8 @@ def recuperar_soluciones(C, R, entradas, pd):
         else:
             i -= 1
     return list(reversed(solucion))
+
+print(planear_gira_memo(3, 3, [3000, 6000, 7000, 8000, 9000]))
 
 tabla = planear_gira_tab(3, 3, [3000, 6000, 7000, 8000, 9000])
 print(tabla)
