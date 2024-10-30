@@ -1,25 +1,25 @@
-import math
 import numpy as np
+import math
 
-def salvar_princesa(mazmorra):
+def mochila_princesa(matriz, i, j):
+    if i >= matriz.shape[0] or j >= matriz.shape[1]:
+        return math.inf
+    
+    if i == matriz.shape[0]-1 and j == matriz.shape[1]-1:
+        if matriz[i, j] >= 0:
+            return 1
+        else:
+            return abs(matriz[i, j]) + 1
+    
+    derecha = mochila_princesa(matriz, i, j+1)
+    abajo = mochila_princesa(matriz, i+1, j)
+
+    return min(derecha, abajo)
+
+def salvar_princesa(matriz):
     i = 0
     j = 0
-    def salvar_princesa_custom(mazmorra, i, j):
-        if i == mazmorra.shape[0] - 1 and j == mazmorra.shape[1] -1:
-            return max(1, 1 - mazmorra[i, j])
-        
-        if i > mazmorra.shape[0] - 1 or j > mazmorra.shape[1] -1:
-            return math.inf
-        
-        abajo = salvar_princesa_custom(mazmorra, i+1, j)
-        derecha = salvar_princesa_custom(mazmorra, i, j+1)
-        vida = max(1, 1 - mazmorra[i, j])
-
-        return min(abajo, derecha) + vida
-
-
-    return salvar_princesa_custom(mazmorra, i, j)
-
+    return mochila_princesa(matriz, i, j) + 1
 
 mazmorra = np.array([[-2, -3, 3], [-5, -10, 1], [10, 30, -5]])
 print(salvar_princesa(mazmorra))
