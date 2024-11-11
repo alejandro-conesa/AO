@@ -18,7 +18,7 @@ def mochila_princesa(matriz, i, j):
 
 def salvar_princesa(matriz):
     i = 0
-    j = 0
+    j = len()
     return mochila_princesa(matriz, i, j) + 1
 
 mazmorra = np.array([[-2, -3, 3], [-5, -10, 1], [10, 30, -5]])

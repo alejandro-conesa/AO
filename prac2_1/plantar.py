@@ -43,23 +43,8 @@ def plantar_memo(matriz):
     return mochila_memo(matriz, i, j, pd) + 1
 
 def plantar_tab(matriz):
-    i = matriz.shape[0]
-    j = 0
-    pd = np.full((matriz.shape[0], matriz.shape[1]), -1)
-    pd[matriz.shape[0]-1, 0] = 0
-    for a in range(matriz.shape[0]):
-        for b in range(matriz.shape[1]):
-            if matriz[a, b] == 1:
-                pd[a, b] = 10^10
-
-    for a in range(i-2, -1, -1):
-        for b in range(1, j):
-            arriba = pd[i-1, j]
-            diagonal = pd[i-1, j+1]
-            derecha = pd[i, j+1]
-            pd[i, j] = min(arriba, diagonal, derecha) + 1
-
-    return pd[0, -1]
+    i = matriz.shape(0)
+    pass
 
 matriz = np.array([[0, 0, 0, 0],[0, 1, 1, 0],[0, 1, 0, 0]])
 print(plantar(matriz))
