@@ -8,4 +8,7 @@ def fontanero(t):
         for j in range(i):
             suma += t[j]
         tiempos_espera[i] = suma
-    return tiempos_espera
+    te_medio = sum(tiempos_espera)/len(tiempos_espera)
+    return (t, tiempos_espera, te_medio)
+
+print(fontanero([10, 2, 3, 15, 6]))
