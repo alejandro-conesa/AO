@@ -17,6 +17,7 @@ def colorear_grafos(matriz_adyacencia: np.array) -> int:
     nodos_coloreados = []
     colores_usados = []
     for i in range(len(lista_nodos_ordenada)):
+        
         min_color = float("inf")
 
         for id_conexion in lista_nodos_ordenada[i][1]:
@@ -46,7 +47,6 @@ adj_matrix = [
     [0, 0, 0, 1, 0, 1, 1, 0, 0, 1],
     [0, 0, 0, 0, 1, 0, 1, 1, 1, 0]
 ]
-
 ln, cu = colorear_grafos(np.array(adj_matrix))
 print(ln)
 print(cu)
