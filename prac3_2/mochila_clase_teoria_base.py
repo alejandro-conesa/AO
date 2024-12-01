@@ -9,31 +9,35 @@ class Mochila:
         self.best_x = None
         self.best_v = -1
     
+    # calcula el peso de un vector
     def __peso(self, x):
         p = 0
         for i in range(self.N):
             p += x[i]*self.w[i]
         return p
 
+    # calcula el valor de un vector
     def __valor(self, x):
         value = 0
         for i in range(self.N):
             value += x[i]*self.v[i]
         return value
     
+
     def __v_atras(self, x, i):
         if i == self.N:
             # nodo hoja
             if self.__peso(x) <= self.W: # factible
-                self.best_v = self.__valor(x)
-                self.best_x = x.copy()
+                if self.__valor(x) >= self.best_v:
+                    self.best_v = self.__valor(x)
+                    self.best_x = x.copy()
         else:
             for o in [0, 1]:
                 x[i] = o
                 self.__v_atras(x, i+1)
 
     def resolver(self):
-        x = [-1]*N
+        x = [-1]*self.N
         i = 0
         self.__v_atras(x=x, i=i)
 

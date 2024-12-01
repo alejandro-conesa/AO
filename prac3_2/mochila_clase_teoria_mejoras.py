@@ -48,8 +48,6 @@ class Mochila:
                 w_acc += self.w[i]
         return x, v_acc
 
-
-
     def resolver(self):
         x = [-1] * self.N
         i = 0
@@ -61,7 +59,7 @@ class Mochila:
 if __name__ == '__main__':
     random.seed(1)
 
-    N = 50
+    N = 5
     v = [random.randint(1,50) for _ in range(N)]
     w = [random.randint(1,50) for _ in range(N)]
     W = random.randint(N*1, N*25)
