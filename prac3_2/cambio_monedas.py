@@ -51,7 +51,7 @@ class Monedas:
         self.v_atras(x=x, i=i, m_acc=0, c_acc=0)
 
 
-moneda = Monedas(1.4, [2, 1, 0.5, 0.2, 0.1], 5)
+moneda = Monedas(1.3, [2, 1, 0.5, 0.2, 0.1], 5)
 moneda.resolver()
 print(moneda.best_x)
 print(moneda.best_c)
