@@ -1,2 +1,2 @@
 Repositorio con todos los ejercicios de la asignatura de Algoritia y Optimización de segundo.
-Espero que el lector de este documento no se moleste en leer los nombres de los commits, alguno podría considerarse poco serio.
+Contiene los ejercicios de las prácticas así como los de alguna clase de teoría.
